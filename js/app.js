@@ -38,16 +38,20 @@ function showAlert(message){
     }
 } 
 
-function searchImages(){
+async function searchImages(){
     const term = document.querySelector('#term').value;
     const key ='30853507-432b911b162dd7329aae1bd13';
     const url = `https://pixabay.com/api/?key=${key}&q=${term}&per_page=${registerPagination}&page=${currentPage}`;
-    fetch(url)
-        .then(resp => resp.json())
-        .then(result => {
+ 
+        try {
+            const resp = await fetch(url);
+            const result = await resp.json();
             totalPages = estimatePages(result.totalHits)
             showImages(result.hits)
-        })
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
     
     //CALCULATE PAGINATION
@@ -59,7 +63,7 @@ function searchImages(){
     function *createPaginator(total){
         for (let i =1;  i<= total; i++){
             yield i;
-        console.log(i);
+        
     }
 }
 
@@ -100,7 +104,6 @@ function showImages(images){
 //PRINT PAGINATION
 function printPaginator(){
     iterator = createPaginator(totalPages);
-    console.log(iterator.next().value);
     while(true){
         const {value, done} = iterator.next();
         if(done) return;
