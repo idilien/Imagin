@@ -1,2 +1,3 @@
 # Imagin
-Project API Pixabay in JavaScript  with Tailwind CSS and Pagination
+Built using JavaScript, Illustrator and Tailwind CSS
+Simple PixaBay clone using his API image search engine by name with paging by number of images
